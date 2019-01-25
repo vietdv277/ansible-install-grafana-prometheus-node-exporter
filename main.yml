@@ -1,0 +1,15 @@
+- hosts: grafana
+  vars_files:
+    - group_vars/all
+  roles:
+    - grafana
+
+- hosts: prometheus
+  vars_files:
+    - group_vars/all
+  roles:
+    - prometheus
+
+- hosts: nodeexporter
+  roles:
+    - node-exporter

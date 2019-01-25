@@ -1,0 +1,43 @@
+---
+# tasks file for node-exporter
+
+- name: Node-exporter | Create Prometheus system group
+  group:
+    name: prometheus
+    state: present
+    system: yes
+  tags: exporter
+
+- name: Node-exporter | Create Prometheus system user
+  user:
+    name: prometheus
+    group: prometheus
+    shell: /sbin/nologin
+    createhome: no
+  tags: exporter
+
+- name: Node-exporter | Copy node_exporter fil to /usr/local/bin directory
+  copy:
+    src: ./node_exporter
+    dest: /usr/local/bin/
+    mode: 0755
+  tags: exporter
+
+- name: Node-exporter | Create node_exporter.service file
+  copy:
+    src: ./node_exporter.service
+    dest: /etc/systemd/system/
+    mode: 0755
+  tags: exporter
+
+- name: Node-exporter | Start node_exporter service
+  service:
+    name: node_exporter
+    state: started
+  tags: exporter
+
+- name: Node-exporter | Make node_exporter start on boot
+  service:
+    name: node_exporter
+    enabled: yes
+  tags: exporter

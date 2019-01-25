@@ -1,0 +1,66 @@
+---
+# tasks file for prometheus
+
+- name: Prometheus | Create Prometheus system group
+  group:
+    name: prometheus
+    state: present
+    system: yes
+
+- name: Prometheus | Create Prometheus system user
+  user:
+    name: prometheus
+    group: prometheus
+    shell: /sbin/nologin
+    createhome: no
+
+- name: Prometheus | Create data and configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  with_items:
+    - /var/lib/prometheus
+    - /etc/prometheus/rules
+    - /etc/prometheus/rules.d
+    - /etc/prometheus/files_sd
+
+- name: Prometheus | Copy binary files into the /usr/local/bin/directory
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  with_items:
+    - ./prometheus-2.7.0/prometheus
+    - ./prometheus-2.7.0/promtool
+   
+- name: Prometheus | Copy consoles and console_libraries to /etc/prometheus directory
+  copy:
+    src: "{{ item }}"
+    dest: /etc/prometheus
+  with_items:
+    - ./prometheus-2.7.0/console_libraries
+    - ./prometheus-2.7.0/consoles 
+
+- name: Prometheus | Create a Prometheus configuration file
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+
+- name: Prometheus | Create a Prometheus systemd Service unit file
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Prometheus | Reload systemd
+  sudo: yes
+  command: systemctl daemon-reload
+
+- name: Prometheus | Start Prometheus
+  service:
+    name: prometheus
+    state: started

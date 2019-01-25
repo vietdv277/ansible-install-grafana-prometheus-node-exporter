@@ -1,0 +1,8 @@
+---
+# tasks file for prometheus
+
+- name: Create Prometheus system group
+  group:
+    name: prometheus
+    state: present
+    system: yes

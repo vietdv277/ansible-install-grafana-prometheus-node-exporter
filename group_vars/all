@@ -1,0 +1,21 @@
+---
+
+exporterhosts:
+  - hostname: grafana
+    address: 10.0.0.41
+  - hostname: pv-controller-1
+    address: 10.0.0.1
+  - hostname: pv-controller-2
+    address: 10.0.0.2
+  - hostname: pv-controller-3
+    address: 10.0.0.3
+  - hostname: pv-compute-01
+    address: 10.0.0.101
+  - hostname: pv-compute-02
+    address: 10.0.0.102
+  - hostname: pv-network-1
+    address: 10.0.0.5
+  - hostname: pv-network-2
+    address: 10.0.0.6
+
+cpus: 1

@@ -1,0 +1,26 @@
+---
+# tasks file for grafana
+- name: Add Grafana repo
+  copy:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo  
+  tags: grafana
+
+- name: Install Grafana
+  yum:
+    name: grafana
+    enablerepo: grafana
+    state: present
+  tags: grafana
+
+- name: Start Grafana service
+  service:
+    name: grafana-server
+    state: started
+  tags: grafana
+
+- name: Enable Grafana service
+  service:
+    name: grafana-server
+    enabled: yes
+  tags: grafana  

@@ -1,0 +1,15 @@
+[grafana]
+grafana-01 ansible_host=10.0.0.41
+
+[prometheus]
+grafana-01 ansible_host=10.0.0.41
+
+[nodeexporter]
+grafana-01 ansible_host=10.0.0.41
+pv-controller-1 ansible_host=10.0.0.1
+pv-controller-2 ansible_host=10.0.0.2
+pv-controller-3 ansible_host=10.0.0.3
+pv-network-1 ansible_host=10.0.0.5
+pv-network-2 ansible_host=10.0.0.6
+pv-compute-01 ansible_host=10.0.0.101
+pv-compute-02 ansible_host=10.0.0.102

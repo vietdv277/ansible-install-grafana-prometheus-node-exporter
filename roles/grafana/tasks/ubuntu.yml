@@ -1,0 +1,27 @@
+---
+
+- name: Grafana | Create apt repository
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+    filename: grafana.list
+  tags: grafana
+
+- name: Grafana | Add gpg key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+  tags: grafana
+
+- name: Grafana | Install grafana
+  apt:
+    name: grafana
+    update_cache: yes
+  tags: grafana      
+
+- name: Grafana | Start grafana server
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
+  tags: grafana
