@@ -13,14 +13,16 @@ Ansible version >= 2.7.0
 
 Variables
 ------------
-- Change variables following your system in group_vars/all
+- Change variables following your system in `group_vars/all`
 ```
-hostname: hostname of host will be install node_exporter
-address: ip address of host will be install node_exporter
-cpus: is the number of cores cpu on prometheus server host
+hostname: Hostname of host will be install node_exporter
+address: Ip address of host will be install node_exporter
+cpus: The number of cores cpu on prometheus server host
 ```
-- Change the ip address following your system in hosts
+- Change the ip address following your system in `hosts` file
 
 Run Playbook
 ==============
-ansible-playbook main.yml -v -e@group_vars/all 
+```
+ansible-playbook main.yml -v -e@group_vars/all
+```
